@@ -1,8 +1,10 @@
 package com.dna.ecommerceproj
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.dna.ecommerceproj.databinding.ActivityMainBinding
+import com.dna.ecommerceproj.ui.view.LoginActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,8 +13,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
 
+        binding.btnGoToLogin.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

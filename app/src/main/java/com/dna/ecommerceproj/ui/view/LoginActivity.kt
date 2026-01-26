@@ -2,62 +2,63 @@ package com.dna.ecommerceproj.ui.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.dna.ecommerceproj.data.model.UserLogin
+import com.dna.ecommerceproj.data.network.RetrofitClient
 import com.dna.ecommerceproj.databinding.ActivityLoginBinding
-import com.dna.ecommerceproj.databinding.ActivityMainBinding
 import com.dna.ecommerceproj.ui.viewModel.AuthViewModel
+import com.dna.ecommerceproj.ui.viewModel.ViewModelFactory
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var bindingLogin: ActivityLoginBinding
-    private val viewModel: AuthViewModel by viewModels()
+
+    private lateinit var binding: ActivityLoginBinding
+
+    private val authViewModel: AuthViewModel by viewModels {
+        ViewModelFactory(RetrofitClient.apiService)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        bindingLogin = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(bindingLogin.root)
-
-        setupClickListeners()
-        observViewModel()
-
-    }
-    private fun setupClickListeners(){
-        bindingLogin.btnLogin.setOnClickListener {
-            val email = bindingLogin.etEmail.text.toString()
-            val senha = bindingLogin.etPassword.text.toString()
-
-            if(email.isNotEmpty() && senha.isNotEmpty()){
-                bindingLogin.loading.visibility = View.VISIBLE
-                viewModel.realizarLogin(email,senha)
-            }else{
-                Toast.makeText(this,"Preencha todos os campos", Toast.LENGTH_SHORT).show()
+        lifecycleScope.launch {
+            authViewModel.loginResult.collect { isSuccess ->
+                if (isSuccess) {
+                    Toast.makeText(this@LoginActivity, "Login bem-sucedido!", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@LoginActivity, TodoListActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
             }
         }
 
-        bindingLogin.paginaCadastro.setOnClickListener {
-            val intentCadastro = Intent(this, CadastroActivity::class.java)
-            startActivity(intentCadastro)
+        lifecycleScope.launch {
+            authViewModel.error.collect { errorMessage ->
+                if (errorMessage.isNotEmpty()) {
+                    Toast.makeText(this@LoginActivity, errorMessage, Toast.LENGTH_LONG).show()
+                }
+            }
         }
 
-    }
+        binding.btnLogin.setOnClickListener {
+            val email = binding.etEmail.text.toString().trim()
+            val password = binding.etPassword.text.toString().trim()
 
-    private fun observViewModel(){
-        viewModel.loginResult.observe(this){ sucesso ->
-            bindingLogin.loading.visibility = View.GONE
-            if(sucesso){
-                Toast.makeText(this,"Login com sucesso!",Toast.LENGTH_SHORT).show()
-
-                val intent = Intent(this, ActivityMainBinding::class.java)
-                startActivity(intent)
-                finish()
-            }else{
-                Toast.makeText(this,"Erro: Email ou senha incorretos", Toast.LENGTH_SHORT).show()
+            if (email.isNotEmpty() && password.isNotEmpty()) {
+                authViewModel.login(UserLogin(email, password))
+            } else {
+                Toast.makeText(this, "Por favor, preencha todos os campos", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.paginaCadastro.setOnClickListener {
+            val intent = Intent(this, CadastroActivity::class.java)
+            startActivity(intent)
         }
     }
 }
