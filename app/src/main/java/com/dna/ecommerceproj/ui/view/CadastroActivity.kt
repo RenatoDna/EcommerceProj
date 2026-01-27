@@ -28,6 +28,11 @@ class CadastroActivity : AppCompatActivity() {
         bindingCadastro = ActivityCadastroBinding.inflate(layoutInflater)
         setContentView(bindingCadastro.root)
 
+        bindingCadastro.paginaLogin.setOnClickListener {
+            val intentLogin = (Intent(this, LoginActivity::class.java))
+            startActivity(intentLogin)
+        }
+
         bindingCadastro.btnCadastro.setOnClickListener {
             val nome = bindingCadastro.etRegNome.text.toString().trim()
             val sobrenome = bindingCadastro.etRegSobrenome.text.toString().trim()

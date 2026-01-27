@@ -17,13 +17,19 @@
         android:theme="@style/Theme.EcommerceProj"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.view.AddEditTodoActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.view.CadastroActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.view.TodoListActivity"
             android:exported="false" />
         <activity
             android:name=".ui.view.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,10 +1,9 @@
-package com.dna.ecommerceproj
+package com.dna.ecommerceproj.ui.view
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.dna.ecommerceproj.databinding.ActivityMainBinding
-import com.dna.ecommerceproj.ui.view.LoginActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,8 +15,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnGoToLogin.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+            val intentLogin = Intent(this, LoginActivity::class.java)
+            startActivity(intentLogin)
+        }
+
+        binding.btnGoToCadastro.setOnClickListener {
+            val intentCadastro = Intent(this, CadastroActivity::class.java)
+            startActivity(intentCadastro)
         }
     }
 }
