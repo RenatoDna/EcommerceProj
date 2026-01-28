@@ -8,15 +8,19 @@
     tools:context=".ui.view.AddEditTodoActivity"
     android:orientation="vertical"
     android:padding="16dp"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@color/cinzaclaro">
 
     <EditText
         android:id="@+id/et_todo_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:hint="Título da Tarefa"
         android:inputType="textCapSentences"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:background="@drawable/backgraundinputs"
+        android:padding="5dp"/>
+
     <EditText
         android:layout_marginTop="20dp"
         android:id="@+id/et_todo_descrition"
@@ -24,26 +28,33 @@
         android:layout_height="200dp"
         android:hint="Descrição da tarefa"
         android:inputType="textCapSentences"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:background="@drawable/backgraundinputs"
+        android:padding="5dp"/>
+
     <TextView
         android:id="@+id/dataHora"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:hint="data"
-        android:visibility="gone"/>
-    <Button
+        android:visibility="gone"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Salvar" />
+        android:text="Salvar"
+        android:background="@drawable/backgraundbuttonlogincadastro"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Lista" />
+        android:text="Lista"
+        android:background="@drawable/backgraundbutton"/>
 
 </LinearLayout>
