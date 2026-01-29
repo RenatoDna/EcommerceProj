@@ -63,9 +63,10 @@ class TodoListActivity : AppCompatActivity() {
                     putExtra(AddEditTodoActivity.EXTRA_ID, todoItem.id)
                     putExtra(AddEditTodoActivity.EXTRA_TITLE, todoItem.title)
                     putExtra(AddEditTodoActivity.EXTRA_DESCRIPTION, todoItem.description)
+                    putExtra(AddEditTodoActivity.EXTRA_IS_COMPLETED,todoItem.isCompleted)
                 }
                 startActivity(intent)
-            }
+            },
         )
 
         binding.recyclerView.apply {

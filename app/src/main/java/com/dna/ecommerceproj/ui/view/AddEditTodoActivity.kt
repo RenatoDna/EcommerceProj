@@ -23,7 +23,6 @@ class AddEditTodoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddEditTodoBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         if (intent.hasExtra(EXTRA_ID)) {
             supportActionBar?.title = "Editar Tarefa"
 
@@ -31,9 +30,11 @@ class AddEditTodoActivity : AppCompatActivity() {
             val todoTitle = intent.getStringExtra(EXTRA_TITLE)
             val todoDescription = intent.getStringExtra(EXTRA_DESCRIPTION)
             val dataHora = intent.getStringExtra(DATA_HORA)
+            val isCompleted = intent.getBooleanExtra(EXTRA_IS_COMPLETED, false)
 
             binding.etTodoTitle.setText(todoTitle)
-            binding.etTodoDescrition.setText(todoDescription)
+            binding.etTodoDescription.setText(todoDescription)
+            binding.statusIsCompleted.isChecked = isCompleted
 
             if(dataHora != null){
                 binding.dataHora.text = "Criado em : $dataHora"
@@ -45,10 +46,11 @@ class AddEditTodoActivity : AppCompatActivity() {
             binding.dataHora.visibility = View.GONE
         }
 
+
         binding.btnSave.setOnClickListener {
             val title = binding.etTodoTitle.text.toString()
-            val description = binding.etTodoDescrition.text.toString()
-
+            val description = binding.etTodoDescription.text.toString()
+            val isCompleted = binding.statusIsCompleted.isChecked
 
             if (title.isBlank()) {
                 binding.etTodoTitle.error = "O título não pode estar vazio"
@@ -56,15 +58,15 @@ class AddEditTodoActivity : AppCompatActivity() {
             }
 
             if (description.isBlank()){
-                binding.etTodoDescrition.error = "A Descrição não pode esta vazia"
+                binding.etTodoDescription.error = "A Descrição não pode esta vazia"
                 return@setOnClickListener
             }
 
             if (currentTodoId == null) {
 
-                todoViewModel.createTodo(title, description)
+                todoViewModel.createTodo(title, description, isCompleted)
             } else {
-                val updatedTodo = requestNote(title = title,description = description)
+                val updatedTodo = requestNote(title = title, description = description, isCompleted = isCompleted)
                 todoViewModel.updateTodo(currentTodoId!!, updatedTodo)
             }
             val intent = Intent(this, TodoListActivity::class.java)
@@ -78,12 +80,11 @@ class AddEditTodoActivity : AppCompatActivity() {
             startActivity(intentLista)
         }
     }
-
     companion object {
         const val EXTRA_ID = "EXTRA_ID"
         const val EXTRA_TITLE = "EXTRA_TITLE"
         const val EXTRA_DESCRIPTION = "EXTRA_DESCRIPTION"
         const val DATA_HORA = "DATA_HORA"
+        const val EXTRA_IS_COMPLETED = "EXTRA_IS_COMPLETED"
     }
 }
-

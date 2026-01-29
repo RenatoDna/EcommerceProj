@@ -23,7 +23,7 @@
 
     <EditText
         android:layout_marginTop="20dp"
-        android:id="@+id/et_todo_descrition"
+        android:id="@+id/et_todo_description"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:hint="Descrição da tarefa"
@@ -39,6 +39,15 @@
         android:layout_marginTop="10dp"
         android:hint="data"
         android:visibility="gone"
+        />
+
+    <CheckBox
+        android:id="@+id/status_is_completed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Tarefa Concluida"
+        android:textStyle="bold"
         />
 
     <androidx.appcompat.widget.AppCompatButton

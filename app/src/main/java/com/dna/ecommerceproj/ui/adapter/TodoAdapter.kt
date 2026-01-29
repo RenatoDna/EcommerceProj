@@ -3,6 +3,7 @@ package com.dna.ecommerceproj.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.dna.ecommerceproj.R
 import com.dna.ecommerceproj.data.model.TodoItem
 import com.dna.ecommerceproj.databinding.ItemToDoBinding
 
@@ -34,7 +35,12 @@ class TodoAdapter(
             binding.tituloTodo.text = todo.title
             binding.todoDescricao.text = todo.description
             binding.dataHora.text = todo.data_hora
-
+            binding.textStatusIsCompleted.text = if (todo.isCompleted){
+                binding.layoutItens.setBackgroundResource(R.drawable.backgraundbuttonlogincadastro)
+                "Concluido"
+            } else {
+                "Pendente"
+            }
             binding.editButton.setOnClickListener {
                 onEditClick(todo)
             }

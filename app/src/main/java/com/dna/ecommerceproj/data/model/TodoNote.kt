@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class addNote(
     val title: String,
     val description: String,
+    @SerializedName("is_completed")
     val isCompleted: Boolean,
     @SerializedName("user_id")
     val userId: Int,
@@ -13,6 +14,8 @@ data class addNote(
 data class requestNote(
     val title: String,
     val description: String?,
+    @SerializedName("is_completed")
+    val isCompleted: Boolean,
 )
 
 data class TodoItem(
@@ -25,7 +28,7 @@ data class TodoItem(
     @SerializedName("description")
     val description: String?,
 
-    @SerializedName("isCompleted")
+    @SerializedName("is_completed")
     var isCompleted: Boolean,
 
     @SerializedName("data_hora")

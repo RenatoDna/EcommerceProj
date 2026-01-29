@@ -4,7 +4,19 @@ Projeto para CADEIRA MOBILE 1
 
 descrição do projeto;
 
-app to do , adiconar titulo, descrição e exibe a hora em que a nota foi criada,
-permite a edicão e delete do mesmo 
+Aplicativo ToDo vinculado a usuario
 
-tela de login e cadastro, notas vinculadas ao usuario
+
+usuario ao logar visualiza suas tarefas cadastradas e pode ver os status delas,
+
+azul para concluida e verde para pendente,
+
+o app conta com:
+
+    - tela de login
+    - tela de cadastro 
+    - tela de lista de tarefas
+    - tela de adicionar e edita tarefa ou nova tarefa
+    - tela de boas vindas
+
+ 
