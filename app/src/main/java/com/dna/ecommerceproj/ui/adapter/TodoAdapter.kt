@@ -12,6 +12,7 @@ class TodoAdapter(
     private var todos: List<TodoItem>,
     private val onDeleteClick: (String) -> Unit,
     private val onEditClick: (TodoItem) -> Unit,
+    private val onStatusTarefa: (TodoItem) -> Unit,
 
 ) : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
@@ -46,6 +47,9 @@ class TodoAdapter(
             }
             binding.deleteButton.setOnClickListener {
                 onDeleteClick(todo.id)
+            }
+            binding.textStatusIsCompleted.setOnClickListener {
+                onStatusTarefa(todo)
             }
 
         }

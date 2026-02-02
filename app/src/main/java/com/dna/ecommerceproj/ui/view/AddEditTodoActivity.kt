@@ -2,7 +2,6 @@ package com.dna.ecommerceproj.ui.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.dna.ecommerceproj.data.model.requestNote
@@ -25,25 +24,17 @@ class AddEditTodoActivity : AppCompatActivity() {
         setContentView(binding.root)
         if (intent.hasExtra(EXTRA_ID)) {
             supportActionBar?.title = "Editar Tarefa"
-
             currentTodoId = intent.getStringExtra(EXTRA_ID)
             val todoTitle = intent.getStringExtra(EXTRA_TITLE)
             val todoDescription = intent.getStringExtra(EXTRA_DESCRIPTION)
-            val dataHora = intent.getStringExtra(DATA_HORA)
             val isCompleted = intent.getBooleanExtra(EXTRA_IS_COMPLETED, false)
 
             binding.etTodoTitle.setText(todoTitle)
             binding.etTodoDescription.setText(todoDescription)
             binding.statusIsCompleted.isChecked = isCompleted
 
-            if(dataHora != null){
-                binding.dataHora.text = "Criado em : $dataHora"
-                binding.dataHora.visibility = View.VISIBLE
-            }
-
         } else {
             supportActionBar?.title = "Adicionar Tarefa"
-            binding.dataHora.visibility = View.GONE
         }
 
 
@@ -63,7 +54,6 @@ class AddEditTodoActivity : AppCompatActivity() {
             }
 
             if (currentTodoId == null) {
-
                 todoViewModel.createTodo(title, description, isCompleted)
             } else {
                 val updatedTodo = requestNote(title = title, description = description, isCompleted = isCompleted)
@@ -84,7 +74,6 @@ class AddEditTodoActivity : AppCompatActivity() {
         const val EXTRA_ID = "EXTRA_ID"
         const val EXTRA_TITLE = "EXTRA_TITLE"
         const val EXTRA_DESCRIPTION = "EXTRA_DESCRIPTION"
-        const val DATA_HORA = "DATA_HORA"
         const val EXTRA_IS_COMPLETED = "EXTRA_IS_COMPLETED"
     }
 }

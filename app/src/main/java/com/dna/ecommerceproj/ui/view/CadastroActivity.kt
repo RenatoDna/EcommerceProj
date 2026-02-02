@@ -60,7 +60,7 @@ class CadastroActivity : AppCompatActivity() {
         lifecycleScope.launch {
             viewModel.error.collect { errorMsg ->
                 if (errorMsg.isNotEmpty()) {
-                    Toast.makeText(this@CadastroActivity, errorMsg, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@CadastroActivity, "errorMsg", Toast.LENGTH_LONG).show()
                 }
             }
         }

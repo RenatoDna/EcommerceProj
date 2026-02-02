@@ -9,17 +9,22 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dna.ecommerceproj.data.SessionManager.getCurrentUserEmail
 import com.dna.ecommerceproj.data.SessionManager.getCurrentUserName
+import com.dna.ecommerceproj.data.model.resquestNoteStatus
 import com.dna.ecommerceproj.data.network.RetrofitClient
 import com.dna.ecommerceproj.databinding.ActivityTodoListBinding
 import com.dna.ecommerceproj.ui.adapter.TodoAdapter
 import com.dna.ecommerceproj.ui.viewModel.TodoViewModel
 import com.dna.ecommerceproj.ui.viewModel.ViewModelFactory
 import kotlinx.coroutines.launch
+import kotlin.jvm.java
 
 class TodoListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTodoListBinding
     private lateinit var todoAdapter: TodoAdapter
+
+
+    private val currentTodoId: String? = null
 
     private val todoViewModel: TodoViewModel by viewModels {
         ViewModelFactory(RetrofitClient.apiService)
@@ -37,6 +42,7 @@ class TodoListActivity : AppCompatActivity() {
                 todoAdapter.updateData(todos)
             }
         }
+
         binding.nomeUser.text = getCurrentUserName()
         binding.emailUser.text = getCurrentUserEmail()
 
@@ -67,7 +73,19 @@ class TodoListActivity : AppCompatActivity() {
                 }
                 startActivity(intent)
             },
+            onStatusTarefa = {todoItem ->
+
+                if (todoItem.id != null) {
+                    val updatedTodoStatus = resquestNoteStatus(isCompleted = !todoItem.isCompleted)
+                    todoViewModel.updateTodoStatus(todoItem.id,updatedTodoStatus)
+                    binding.recyclerView.layoutManager = LinearLayoutManager(this)
+                    val intentRecarregarpagina = Intent(this@TodoListActivity, TodoListActivity::class.java)
+                    startActivity(intentRecarregarpagina)
+
+                }
+            }
         )
+
 
         binding.recyclerView.apply {
             adapter = todoAdapter
@@ -75,3 +93,4 @@ class TodoListActivity : AppCompatActivity() {
         }
     }
 }
+

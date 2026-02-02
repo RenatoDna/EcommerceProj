@@ -18,6 +18,11 @@ data class requestNote(
     val isCompleted: Boolean,
 )
 
+data class resquestNoteStatus(
+    @SerializedName("is_completed")
+    val isCompleted: Boolean,
+)
+
 data class TodoItem(
     @SerializedName("id")
     val id: String,

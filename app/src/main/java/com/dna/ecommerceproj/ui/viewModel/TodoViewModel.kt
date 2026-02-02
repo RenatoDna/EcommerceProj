@@ -6,6 +6,7 @@ import com.dna.ecommerceproj.data.SessionManager
 import com.dna.ecommerceproj.data.model.TodoItem
 import com.dna.ecommerceproj.data.model.addNote
 import com.dna.ecommerceproj.data.model.requestNote
+import com.dna.ecommerceproj.data.model.resquestNoteStatus
 import com.dna.ecommerceproj.data.repository.TodoRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -36,7 +37,6 @@ class TodoViewModel(private val repository: TodoRepository) : ViewModel() {
         if (userId == null) {
             return
         }
-
         viewModelScope.launch {
             val newTodo = addNote(title = title, description = description, isCompleted = isCompleted, userId = userId)
             val response = repository.createTodo(newTodo)
@@ -50,6 +50,12 @@ class TodoViewModel(private val repository: TodoRepository) : ViewModel() {
         viewModelScope.launch {
             repository.updateTodo(id,note)
             getTodos()
+        }
+    }
+
+    fun updateTodoStatus(id: String,noteStatus: resquestNoteStatus){
+        viewModelScope.launch {
+            repository.updateTodoStatus(id,noteStatus)
         }
     }
 
